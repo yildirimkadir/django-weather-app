@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +11,10 @@
     <h1>Weather App</h1>
     {% if messages %}
         
-    {% for message in  messages%}
-            <div class="message">{{ message }}</div>
+    {% for message in  messages %}
+        <div class="message">{{ message }}</div>
     {% endfor %}
-        
+
     {% endif %}
     <hr>
     <br>
@@ -21,17 +22,21 @@
 
 
 
-    <form action="">
+    <form action="" method="post">
         {% csrf_token %}
         <input type="text" name="name">
         <input type="submit" value="add_city">
     </form>
     <br>
     <hr>
-    {{city}} <br>
-    {{temp}} <br>
-    <img src="http://openweathermap.org/img/wn/{{icon}}@2x.png" alt="icon">
+    {% for i in city_data %}
+        {{i.city}} <br>
+        {{i.temp}} &#8451 <br>
+        <img src="http://openweathermap.org/img/wn/{{i.icon}}@2x.png" alt="icon"><br>
     {% comment %} {{icon}} <br> {% endcomment %}
-    {{desc}} <br>
+        {{i.desc}} <br><br>
+
+    {% endfor %}
+     <script src="{% static 'weatherapp/js/timeout.js' %}"></script>
 </body>
 </html>
