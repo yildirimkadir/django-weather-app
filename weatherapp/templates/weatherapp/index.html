@@ -35,6 +35,7 @@
         <img src="http://openweathermap.org/img/wn/{{i.icon}}@2x.png" alt="icon"><br>
     {% comment %} {{icon}} <br> {% endcomment %}
         {{i.desc}} <br><br>
+        <button><a href="{% url "delete" i.id %}">Delete</a></button><br><br>
 
     {% endfor %}
      <script src="{% static 'weatherapp/js/timeout.js' %}"></script>

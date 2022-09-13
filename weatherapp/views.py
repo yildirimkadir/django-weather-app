@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from decouple import config
 import requests
 from pprint import pprint
@@ -35,7 +35,8 @@ def index(request):
             "city" : content["name"],
             "temp" : content["main"]["temp"],
             "icon" : content["weather"][0]["icon"],
-            "desc" : content["weather"][0]["description"]
+            "desc" : content["weather"][0]["description"],
+            "id" : city.id
         }
         city_data.append(data)
             
@@ -49,3 +50,10 @@ def index(request):
     }
     
     return render(request, 'weatherapp/index.html', context)
+
+def delete_city(request, id):
+    # city = City.objects.get(id=id)
+    city = get_object_or_404(City, id=id)
+    city.delete()
+    messages.warning(request, "City deleted.")
+    return redirect("home")
